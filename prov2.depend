@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1694878208 source:c:\users\asus\documents\prov2\main.cpp
+	<iostream>
+	<string>
+	<cmath>
+	<fstream>
+	<vector>
+
