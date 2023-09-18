@@ -1,9 +1,42 @@
 
 selected data set :Bendigo Airport Temperature Data-2022.csv
 selected data type : ALL
+choice : Continue
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data type : 2022
+choice : Continue
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+choice : Continue
 selected data set :Bendigo Airport Temperature Data-2022.csv
 selected data type : 2022
-selected data set :Bendigo Airport Temperature Data-2022.csv
+choice : Continue
+selected data set :Avalon Airport Temperature Data-2022.csv
 selected data type : ALL
 selected data set :Bendigo Airport Temperature Data-2022.csv
 selected data type : ALL
@@ -11,6 +44,33 @@ selected data set :Bendigo Airport Temperature Data-2022.csv
 selected data type : ALL
 selected data set :Bendigo Airport Temperature Data-2022.csv
 selected data type : ALL
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+choice : Continue
+selected data set :Avalon Airport Temperature Data-2022.csv and Bendigo Airport Temperature Data-all.csv 
+choice : Continue
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+choice : Continue
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Bendigo Airport Temperature Data-2022.csv
+selected data type : ALL
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
+selected data set :Avalon Airport Temperature Data-2022.csv
 selected data set :Bendigo Airport Temperature Data-2022.csv
 selected data type : ALL
 selected data set :Bendigo Airport Temperature Data-2022.csv
@@ -28,62 +88,15 @@ selected data set :Bendigo Airport Temperature Data-2022.csv
 selected data type : ALL
 selected data set :Bendigo Airport Temperature Data-2022.csv
 selected data type : ALL
+selected data set :Avalon Airport Temperature Data-2022.csv and Bendigo Airport Temperature Data-all.csv 
 selected data set :Bendigo Airport Temperature Data-2022.csv
 selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
-choice : Continue
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-choice : Continue
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
-choice : Continue
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Avalon Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Bendigo Airport Temperature Data-2022.csv
-selected data type : 2022
 choice : Continue
 selected data set :Avalon Airport Temperature Data-2022.csv
-selected data type : ALL
-selected data set :Avalon Airport Temperature Data-2022.csv
-selected data type : ALL
+choice : Exit
+selected data set :Avalon Airport Temperature Data-2022.csv and Bendigo Airport Temperature Data-all.csv 
+selected data set :Avalon Airport Temperature Data-2022.csv and Bendigo Airport Temperature Data-all.csv 
+selected data set :Avalon Airport Temperature Data-2022.csv and Bendigo Airport Temperature Data-all.csv 
+selected data set :Avalon Airport Temperature Data-all.csv(custom input)
+selected data set :Avalon Airport Temperature Data-all.csv(custom input)
+selected data set :Avalon Airport Temperature Data-2022.csv(custom input)

@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-struct
+struct Data
 { // Structure declaration
     int num_of_rows;
     double mean;
@@ -24,7 +24,40 @@ struct
     vector<int> Days_M_temp;
     vector<string> quality;
     // Member (string variable)
-} Airdata,byYear,byMonth,AirdataUnsorted;
+} Airdata,byYear,byMonth;
+
+
+
+void bubbleSort(std::vector<double>& values) {
+    bool swapped;
+    do {
+        swapped = false;
+        for (size_t i = 1; i < values.size(); ++i) {
+            if (values[i - 1] > values[i]) {
+                // Swap values[i-1] and values[i]
+                double temp = values[i - 1];
+                values[i - 1] = values[i];
+                values[i] = temp;
+                swapped = true;
+            }
+        }
+    } while (swapped);
+}
+
+
+double calculateMedian(const std::vector<double>& values) {
+    std::vector<double> sortedValues = values;
+    bubbleSort(sortedValues);
+
+    size_t size = sortedValues.size();
+    if (size % 2 == 0) {
+        // If even number of elements, average the middle two values
+        return (sortedValues[size / 2 - 1] + sortedValues[size / 2]) / 2.0;
+    } else {
+        // If odd number of elements, return the middle value
+        return sortedValues[size / 2];
+    }
+}
 
 void savelog(const string &text)
 {
@@ -43,6 +76,98 @@ void savelog(const string &text)
     // Close the log file
     logfile.close();
 }
+
+void createResultsCSV() {
+     Data data= Airdata;
+    // Create a directory named "Results" if it doesn't exist
+   string directory = "Results/";
+ string monthsName[]={"01","02","03","04","05","06","07","08","09","10","11","12"};
+int monindex=0;
+string preyear=data.Year[0];
+ string filename = directory + data.Year[0]+".csv";
+
+    // Open the CSV file for writing
+   ofstream outfile(filename);
+
+    if (!outfile) {
+        std::cerr << "Error opening " << filename << " for writing." << std::endl;
+        return;
+    }
+
+    // Write column headings to the CSV file
+    outfile << "Year,Month,Hottest Temperature,Coldest Temperature,Average Temperature,Median Temperature" << std::endl;
+
+
+    // Iterate through months and write data to the CSV file
+    for (size_t i = 0; i < data.Month.size(); ++i) {
+        std::string year = data.Year[i];
+        std::string month = data.Month[i];
+        double hottestTemp = data.M_temp[i];
+        double coldestTemp = data.M_temp[i];
+        double sumTemp = data.M_temp[i];
+        std::vector<double> tempsForMonth = {data.M_temp[i]};
+        if(year!=preyear){
+outfile.close();
+           filename = directory + year+".csv";
+
+    // Open the CSV file for writing
+   outfile.open(filename);
+
+    if (!outfile) {
+        std::cerr << "Error opening " << filename << " for writing." << std::endl;
+        return;
+    }
+
+    // Write column headings to the CSV file
+    outfile << "Year,Month,Hottest Temperature,Coldest Temperature,Average Temperature,Median Temperature" << std::endl;
+    preyear=year;
+
+
+        }
+
+        // Find the hottest, coldest, and calculate the sum for the current month
+        for (size_t j = i + 1; j < data.Month.size(); ++j) {
+            if (data.Month[j] == month && data.Year[j]==year) {
+                double temp = data.M_temp[j];
+                hottestTemp = std::max(hottestTemp, temp);
+                coldestTemp = std::min(coldestTemp, temp);
+                sumTemp += temp;
+                tempsForMonth.push_back(temp);
+            }
+        }
+
+        // Calculate average and median temperatures for the current month
+        double averageTemp = sumTemp / tempsForMonth.size();
+        double medianTemp = calculateMedian(tempsForMonth);
+
+        // Write data to the CSV file
+        if(monthsName[monindex]!=month){
+            for(monindex;monindex<12;monindex++){
+                if(monthsName[monindex]!=month){
+                       outfile << year << "," << monthsName[monindex] << "," << "" << "," << "" << ","
+                <<""<< "," << "" << endl;
+                }
+                else{
+
+                monindex++;
+                    break;
+                }
+            }
+        }
+        outfile << year << "," << month << "," << hottestTemp << "," << coldestTemp << ","
+                << averageTemp << "," << medianTemp << endl;
+
+        // Skip processing duplicate months
+        while (i + 1 < data.Month.size() && data.Month[i + 1] == month) {
+            i++;
+        }
+    }
+
+    // Close the CSV file
+    outfile.close();
+}
+
+
 
 // sort data...
 
@@ -220,6 +345,7 @@ data = M_temp;
     byYear.median=median;
   }
   else{
+        cout<<"done"<<endl;
      byMonth.hottest_date=Year[n - 1]+"/"+ Month[n - 1]+"/"+ Date[n - 1];
   byMonth.hottest_temp=M_temp[n - 1];
        byMonth.coldest_date=Year[ 0]+"/"+ Month[0]+"/"+ Date[0];
@@ -268,7 +394,7 @@ bool readCSV(const string filename, int choise)
             file.open(files[i]);
             string line;
             string column;
-            vector<std::string> row;
+            vector<string> row;
             getline(file, line);
             bool inQuotes = false;
 
@@ -397,117 +523,139 @@ bool readCSV(const string filename, int choise)
     }
 
 
-
+createResultsCSV();
     return 1;
     // Replace with actual logic
 }
 
-// Function to find the hottest day in the dataset
-void findHottestDay()
-{
 
-    int vsize = Airdata.num_of_rows;
-    cout << "Hottest Date :" << Airdata.Year[vsize - 1] << "/" << Airdata.Month[vsize - 1] << "/" << Airdata.Date[vsize - 1] << "  Temperature:" << Airdata.M_temp[vsize - 1] << "%C" << endl;
-}
 
-// Function to find the coldest day in the dataset
-void findColdestDay()
-{
 
-    int vsize = Airdata.num_of_rows;
-    cout << "Coldest Date :" << Airdata.Year[0] << "/" << Airdata.Month[0] << "/" << Airdata.Date[0] << "  Temperature:" << Airdata.M_temp[0] << "%C" << endl;
-}
 
-// Function to calculate the mean temperature
-double calculateMeanTemperature()
-{
-    vector<double> data = Airdata.M_temp;
+
+
+
+// Function to calculate the average of a vector of doubles
+double calculateAverage(const vector<double>& values) {
     double sum = 0.0;
-    long int count = data.size();
 
-    if (count == 0)
-    {
-
-        cerr << "Empty data vector. Mean not available." << endl;
-        return 0.0;
+    for (double value : values) {
+        sum += value;
     }
 
-    // Calculate the sum of temperature values
-    for (double temperatureStr : data)
-    {
-        double temperature = temperatureStr;
-        sum += temperature;
-    }
-
-    // Calculate the mean temperature
-    double mean = sum / count;
-
-    return mean;
+    return sum / values.size();
 }
 
-// Function to calculate the median temperature
-double calculateMedianTemperature()
-{
-    vector<double> data = Airdata.M_temp;
-    size_t size = data.size();
-
-    if (size == 0)
-    {
-        // Handle the case of an empty vector
-        cout << "Empty data vector. Median not available." << endl;
-        return 0.0;
+// Function to calculate the variance of a vector of doubles
+double calculateVariance(const vector<double>& values) {
+    if (values.size() <= 1) {
+        return 0.0; // Variance is zero for one or fewer values
     }
 
-    // Calculate the middle index
-    size_t middleIndex = size / 2;
+    double mean = calculateAverage(values);
+    double variance = 0.0;
 
-    if (size % 2 == 0)
-    {
-        // If the vector has an even number of elements, average the two middle values
-        double middleValue1 = data[middleIndex];
-        double middleValue2 = data[middleIndex - 1];
-        return (middleValue1 + middleValue2) / 2.0;
+    for (double value : values) {
+        variance += pow(value - mean, 2);
     }
-    else
-    {
-        // If the vector has an odd number of elements, return the middle value
-        return data[middleIndex];
-    }
+
+    return variance / (values.size() );
 }
+
+
+void findMostConsistentMonth() {
+     Data data= Airdata;
+  //vector<string> months =  data.Month;
+    vector<double> averageTemps;
+    vector<double> variances;
+ string months[]={"01","02","03","04","05","06","07","08","09","10","11","12"};
+
+
+    for (string month : months) {
+        vector<double> tempsOfMonth;
+
+        // Collect all temperature values for the current month
+        for (size_t i = 0; i < data.Month.size(); ++i) {
+            if (data.Month[i] == month) {
+                tempsOfMonth.push_back(data.M_temp[i]);
+            }
+        }
+
+        // Calculate average temperature and variance for the current month
+        double avgTemp = calculateAverage(tempsOfMonth);
+        double variance = calculateVariance(tempsOfMonth);
+
+        averageTemps.push_back(avgTemp);
+        variances.push_back(variance);
+    }
+
+    // Find the index of the month with the smallest variance
+    size_t mostConsistentIndex = 0;
+    double smallestVariance = variances[0];
+        double hottestMonthVal = averageTemps[0];
+        int hottestmonthindex=0;
+          double coldestMonthVal = averageTemps[0];
+        int coldestmonthindex=0;
+    for (size_t i = 0; i < variances.size(); ++i) {
+
+        if (variances[i] < smallestVariance) {
+            smallestVariance = variances[i];
+            mostConsistentIndex = i;
+
+        }
+
+        if(averageTemps[i]>hottestMonthVal){
+            hottestMonthVal=averageTemps[i];
+            hottestmonthindex=i;
+        }
+          if(averageTemps[i]<coldestMonthVal){
+            coldestMonthVal=averageTemps[i];
+            coldestmonthindex=i;
+        }
+
+
+    }
+//print hottest month
+cout << "Hottest Month: " << months[hottestmonthindex] <<" Temperature :"<<hottestMonthVal<<endl;
+//print coldest month
+cout << "coldtest Month: " << months[coldestmonthindex] <<" Temperature :"<<coldestMonthVal<<endl;
+    // Print the most consistent month, its average temperature, and variance
+    cout << "Most Consistent Month: " << months[mostConsistentIndex] <<endl;
+    cout << "Average Temperature: " << averageTemps[mostConsistentIndex] << "°C" <<endl;
+    cout << "Variance: " << smallestVariance << endl;
+}
+
 void selectmonth() {
 
 string preMonth;
 int flag= 0;
 int num_of_rows=0;
 string selectedMonth;
+string months[]={"01.January", "02.February", "03.March", "04.April", "05.May", "06.June", "07.July", "08.August", "09.September", "10.October", "11.November", "12.December"};
 cout<<"-----------Available Months---------"<<endl;
-    for (string month : byYear.Month) {
-            if(preMonth!=month){
-               cout<<month<<endl;
-               preMonth=month;
-            }
+    for (int i=1; i<13; i++)  {
+
+               cout<<i<<"."+months[i-1]<<endl;
+
 
     }
     cout<<"Select Month:";
     cin>>selectedMonth;
-    for(int i=0;i<byYear.num_of_rows;i++){
-        if(byYear.Month[i]==selectedMonth){
-                byMonth.code.push_back(byYear.code[i]);
-         byMonth.s_number.push_back(byYear.s_number[i]);
-            byMonth.Year.push_back(byYear.Year[i]);
-            byMonth.Month.push_back(byYear.Month[i]);
-            byMonth.Date.push_back(byYear.Date[i]);
-            byMonth.M_temp.push_back(byYear.M_temp[i]);
-            byMonth.Days_M_temp.push_back(byYear.Days_M_temp[i]);
-            byMonth.quality.push_back(byYear.quality[i]);
+    for(int i=0;i<Airdata.num_of_rows;i++){
+        if(Airdata.Month[i]==selectedMonth){
+                byMonth.code.push_back(Airdata.code[i]);
+         byMonth.s_number.push_back(Airdata.s_number[i]);
+            byMonth.Year.push_back(Airdata.Year[i]);
+            byMonth.Month.push_back(Airdata.Month[i]);
+            byMonth.Date.push_back(Airdata.Date[i]);
+            byMonth.M_temp.push_back(Airdata.M_temp[i]);
+            byMonth.Days_M_temp.push_back(Airdata.Days_M_temp[i]);
+            byMonth.quality.push_back(Airdata.quality[i]);
             flag=1;
             num_of_rows++;
         }
         else{
-            if(flag==1){
 
-                break;
-            }
         }
     }
 byMonth.num_of_rows=num_of_rows;
@@ -525,9 +673,13 @@ string selectedYear;
 cout<<"-----------Available Years---------"<<endl;
     for (string year : Airdata.Year) {
             if(preyear!=year){
+                    if(preyear=="2023"){
+                        break;
+                    }
                cout<<year<<endl;
                preyear=year;
             }
+
 
     }
     cout<<"Select Year:";
@@ -596,16 +748,55 @@ void showAirdata(){
         cout << "Median temperature for All: " << Airdata.median << "%C" << endl;
 }
 
+void choice3(){
+
+int choice3;
+ cout<<"1.Select by Year"<<endl;
+cout<<"2.Select by Moth"<<endl;
+cin>>choice3;
+     if(choice3==1){
+           selectyear();
+            calcDtails("Year");
+
+         showByYear();
+        }
+else{
+       selectmonth();
+       calcDtails("Month");
+      showByMonth();
+
+                 }
+
+
+
+}
+
 
 int main()
 {
-    cout << "Turing Moore Engineering Temperature Data Analyser 1.0" << endl;
+
+
+        //display a Welcome message
+   cout << "Turing Moore Engineering Temperature Data Analyser 1.0" << endl;
+       cout << "Your name: [Your Name]" << endl; // Replace [Your Name] with your actual name
+    cout << "Your Student ID: [Your Student ID]" << endl; // Replace [Your Student ID] with your actual student ID
+
+
+
+
+    cout << "Date the assignment is due: "<<"[date]"<<endl;
+
+    cout << "Desired Level: HD" << endl;
+      cout << endl<<"------Instructions-------"<<endl<<endl;
+      cout<<"You can use this program to calculate various stats about temperature." << endl<<"Select 1 for analyse Bendigo Airport Data "<<endl<<"Select 2 for analyse Avalon Airport Data"<<endl<<"Select 3 for analyse both Data"<<endl<<"Select 4 for analyse custom input Data sheet";
+    cout<<"Select e to exit and c to continue"<<endl<<"--------------------------------"<<endl;
 
     vector<vector<string>> selectedData;
 
     // Ask the user which dataset they want to analyze
     char choice;
     int choice2;
+
     do
     {
         cout << "Select a dataset to analyze:" << endl;
@@ -624,6 +815,7 @@ int main()
             if (choice2 == 1)
             {
                 readCSV("Bendigo Airport Temperature Data-2022.csv", choice2);
+
                 calcDtails("Airdata");
                 savelog("selected data type : 2022");
              showAirdata();
@@ -635,14 +827,9 @@ int main()
                 readCSV("Bendigo Airport Temperature Data-all.csv", choice2);
                 calcDtails("Airdata");
                  showAirdata();
-                 selectyear();
-                 calcDtails("Year");
+                       findMostConsistentMonth();
 
-                 showByYear();
-                    selectmonth();
-                 calcDtails("Month");
-                 showByMonth();
-
+                choice3();
 
             }
         }
@@ -664,14 +851,8 @@ int main()
                 readCSV("Avalon Airport Temperature Data-all.csv", choice2);
                 calcDtails("Airdata");
                  showAirdata();
-                 selectyear();
-                savelog("selected data type : ALL");
-                calcDtails("Year");
-
-                 showByYear();
-                 selectmonth();
-                 calcDtails("Month");
-                 showByMonth();
+                  findMostConsistentMonth();
+                   choice3();
 
             }
 
@@ -693,9 +874,10 @@ int main()
             else if (choice2 == 2)
             {
                 readCSV("both", choice2);
-               showAirdata();
-                selectyear();
-                savelog("selected data type : ALL");
+                calcDtails("Airdata");
+                 showAirdata();
+                  findMostConsistentMonth();
+                choice3();
 
 
                  showByYear();
@@ -708,20 +890,17 @@ int main()
             getline(cin, csvname);
             getline(cin, csvname);
             savelog("selected data set :" + csvname + "(custom input)");
-           selectyear();
-   cout << "Total number of rows: " << byYear.num_of_rows << endl;
-        cout << "Total number of columns: " << 8 << endl;
-        cout << "Hottest Date :" << byYear.hottest_date << "  Temperature:" << byYear.hottest_temp << "%C" << endl;
-        cout << "Coldest Date :" << byYear.coldest_date << "  Temperature:" << byYear.coldest_temp << "%C" << endl;
             readCSV(csvname, choice2);
+             calcDtails("Airdata");
+                 showAirdata();
+                  findMostConsistentMonth();
+                choice3();
+
         }
         if (choice == 'e')
         {
             break;
         }
-
-
-
 
 
         cout << endl
